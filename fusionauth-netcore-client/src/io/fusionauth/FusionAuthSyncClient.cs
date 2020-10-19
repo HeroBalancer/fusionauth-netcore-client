@@ -81,6 +81,11 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
+    public ClientResponse<ConnectorResponse> CreateConnector(Guid? connectorId, ConnectorRequest request) {
+      return client.CreateConnectorAsync(connectorId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
     public ClientResponse<ConsentResponse> CreateConsent(Guid? consentId, ConsentRequest request) {
       return client.CreateConsentAsync(consentId, request).GetAwaiter().GetResult();
     }
@@ -93,6 +98,16 @@ namespace io.fusionauth {
     /// <inheritdoc/>
     public ClientResponse<FamilyResponse> CreateFamily(Guid? familyId, FamilyRequest request) {
       return client.CreateFamilyAsync(familyId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormResponse> CreateForm(Guid? formId, FormRequest request) {
+      return client.CreateFormAsync(formId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormFieldResponse> CreateFormField(Guid? fieldId, FormFieldRequest request) {
+      return client.CreateFormFieldAsync(fieldId, request).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -187,6 +202,11 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
+    public ClientResponse<RESTVoid> DeleteConnector(Guid? connectorId) {
+      return client.DeleteConnectorAsync(connectorId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
     public ClientResponse<RESTVoid> DeleteConsent(Guid? consentId) {
       return client.DeleteConsentAsync(consentId).GetAwaiter().GetResult();
     }
@@ -194,6 +214,16 @@ namespace io.fusionauth {
     /// <inheritdoc/>
     public ClientResponse<RESTVoid> DeleteEmailTemplate(Guid? emailTemplateId) {
       return client.DeleteEmailTemplateAsync(emailTemplateId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<RESTVoid> DeleteForm(Guid? formId) {
+      return client.DeleteFormAsync(formId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<RESTVoid> DeleteFormField(Guid? fieldId) {
+      return client.DeleteFormFieldAsync(fieldId).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -212,8 +242,8 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
-    public ClientResponse<RESTVoid> DeleteKey(Guid? keyOd) {
-      return client.DeleteKeyAsync(keyOd).GetAwaiter().GetResult();
+    public ClientResponse<RESTVoid> DeleteKey(Guid? keyId) {
+      return client.DeleteKeyAsync(keyId).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -338,8 +368,18 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
+    public ClientResponse<RESTVoid> ImportRefreshTokens(RefreshTokenImportRequest request) {
+      return client.ImportRefreshTokensAsync(request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
     public ClientResponse<RESTVoid> ImportUsers(ImportRequest request) {
       return client.ImportUsersAsync(request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<IntrospectResponse> IntrospectAccessToken(string client_id, string token) {
+      return client.IntrospectAccessTokenAsync(client_id, token).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -385,6 +425,11 @@ namespace io.fusionauth {
     /// <inheritdoc/>
     public ClientResponse<ApplicationResponse> PatchApplicationRole(Guid? applicationId, Guid? roleId, Dictionary<string, object> request) {
       return client.PatchApplicationRoleAsync(applicationId, roleId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<ConnectorResponse> PatchConnector(Guid? connectorId, Dictionary<string, object> request) {
+      return client.PatchConnectorAsync(connectorId, request).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -498,6 +543,11 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
+    public ClientResponse<VerifyEmailResponse> ResendEmailVerificationWithApplicationTemplate(Guid? applicationId, string email) {
+      return client.ResendEmailVerificationWithApplicationTemplateAsync(applicationId, email).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
     public ClientResponse<VerifyRegistrationResponse> ResendRegistrationVerification(string email, Guid? applicationId) {
       return client.ResendRegistrationVerificationAsync(email, applicationId).GetAwaiter().GetResult();
     }
@@ -535,6 +585,16 @@ namespace io.fusionauth {
     /// <inheritdoc/>
     public ClientResponse<AuditLogResponse> RetrieveAuditLog(int? auditLogId) {
       return client.RetrieveAuditLogAsync(auditLogId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<ConnectorResponse> RetrieveConnector(Guid? connectorId) {
+      return client.RetrieveConnectorAsync(connectorId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<ConnectorResponse> RetrieveConnectors() {
+      return client.RetrieveConnectorsAsync().GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -580,6 +640,26 @@ namespace io.fusionauth {
     /// <inheritdoc/>
     public ClientResponse<FamilyResponse> RetrieveFamilyMembersByFamilyId(Guid? familyId) {
       return client.RetrieveFamilyMembersByFamilyIdAsync(familyId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormResponse> RetrieveForm(Guid? formId) {
+      return client.RetrieveFormAsync(formId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormFieldResponse> RetrieveFormField(Guid? fieldId) {
+      return client.RetrieveFormFieldAsync(fieldId).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormFieldResponse> RetrieveFormFields() {
+      return client.RetrieveFormFieldsAsync().GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormResponse> RetrieveForms() {
+      return client.RetrieveFormsAsync().GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>
@@ -818,6 +898,11 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
+    public ClientResponse<UserResponse> RetrieveUserInfoFromAccessToken(string encodedJWT) {
+      return client.RetrieveUserInfoFromAccessTokenAsync(encodedJWT).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
     public ClientResponse<LoginReportResponse> RetrieveUserLoginReport(Guid? applicationId, Guid? userId, long? start, long? end) {
       return client.RetrieveUserLoginReportAsync(applicationId, userId, start, end).GetAwaiter().GetResult();
     }
@@ -945,6 +1030,11 @@ namespace io.fusionauth {
     }
 
     /// <inheritdoc/>
+    public ClientResponse<ConnectorResponse> UpdateConnector(Guid? connectorId, ConnectorRequest request) {
+      return client.UpdateConnectorAsync(connectorId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
     public ClientResponse<ConsentResponse> UpdateConsent(Guid? consentId, ConsentRequest request) {
       return client.UpdateConsentAsync(consentId, request).GetAwaiter().GetResult();
     }
@@ -952,6 +1042,16 @@ namespace io.fusionauth {
     /// <inheritdoc/>
     public ClientResponse<EmailTemplateResponse> UpdateEmailTemplate(Guid? emailTemplateId, EmailTemplateRequest request) {
       return client.UpdateEmailTemplateAsync(emailTemplateId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormResponse> UpdateForm(Guid? formId, FormRequest request) {
+      return client.UpdateFormAsync(formId, request).GetAwaiter().GetResult();
+    }
+
+    /// <inheritdoc/>
+    public ClientResponse<FormFieldResponse> UpdateFormField(Guid? fieldId, FormFieldRequest request) {
+      return client.UpdateFormFieldAsync(fieldId, request).GetAwaiter().GetResult();
     }
 
     /// <inheritdoc/>

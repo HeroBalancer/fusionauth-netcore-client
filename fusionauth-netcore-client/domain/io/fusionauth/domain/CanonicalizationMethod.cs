@@ -20,6 +20,11 @@ using System;
 
 namespace io.fusionauth.domain {
 
+  /**
+   * XML canonicalization method enumeration. This is used for the IdP and SP side of FusionAuth SAML.
+   *
+   * @author Brian Pontarelli
+   */
   public enum CanonicalizationMethod {
         exclusive, 
         exclusive_with_comments, 

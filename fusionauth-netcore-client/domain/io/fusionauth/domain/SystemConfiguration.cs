@@ -27,15 +27,15 @@ namespace io.fusionauth.domain {
 
     public AuditLogConfiguration auditLogConfiguration;
 
-    public string cookieEncryptionIV;
-
-    public string cookieEncryptionKey;
-
     public CORSConfiguration corsConfiguration;
 
     public Dictionary<string, object> data;
 
     public EventLogConfiguration @eventLogConfiguration;
+
+    public DateTimeOffset? insertInstant;
+
+    public DateTimeOffset? lastUpdateInstant;
 
     public LoginRecordConfiguration loginRecordConfiguration;
 

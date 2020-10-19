@@ -35,11 +35,17 @@ namespace io.fusionauth.domain {
 
     public Dictionary<string, object> data;
 
+    public ApplicationEmailConfiguration emailConfiguration;
+
     public Guid? id;
+
+    public DateTimeOffset? insertInstant;
 
     public JWTConfiguration jwtConfiguration;
 
     public LambdaConfiguration lambdaConfiguration;
+
+    public DateTimeOffset? lastUpdateInstant;
 
     public LoginConfiguration loginConfiguration;
 

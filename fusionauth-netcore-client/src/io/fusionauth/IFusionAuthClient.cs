@@ -163,6 +163,20 @@ namespace io.fusionauth {
     Task<ClientResponse<AuditLogResponse>> CreateAuditLogAsync(AuditLogRequest request);
 
     /// <summary>
+    /// Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="connectorId"> (Optional) The Id for the connector. If not provided a secure random UUID will be generated.</param>
+    /// <param name="request"> The request object that contains all of the information used to create the connector.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<ConnectorResponse>> CreateConnectorAsync(Guid? connectorId, ConnectorRequest request);
+
+    /// <summary>
     /// Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
     /// This is an asynchronous method.
     /// </summary>
@@ -204,6 +218,34 @@ namespace io.fusionauth {
     /// IOException.
     /// </returns>
     Task<ClientResponse<FamilyResponse>> CreateFamilyAsync(Guid? familyId, FamilyRequest request);
+
+    /// <summary>
+    /// Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="formId"> (Optional) The Id for the form. If not provided a secure random UUID will be generated.</param>
+    /// <param name="request"> The request object that contains all of the information used to create the form.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormResponse>> CreateFormAsync(Guid? formId, FormRequest request);
+
+    /// <summary>
+    /// Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="fieldId"> (Optional) The Id for the form field. If not provided a secure random UUID will be generated.</param>
+    /// <param name="request"> The request object that contains all of the information used to create the form field.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormFieldResponse>> CreateFormFieldAsync(Guid? fieldId, FormFieldRequest request);
 
     /// <summary>
     /// Creates a group. You can optionally specify an Id for the group, if not provided one will be generated.
@@ -458,6 +500,19 @@ namespace io.fusionauth {
     Task<ClientResponse<RESTVoid>> DeleteApplicationRoleAsync(Guid? applicationId, Guid? roleId);
 
     /// <summary>
+    /// Deletes the connector for the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="connectorId"> The Id of the connector to delete.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<RESTVoid>> DeleteConnectorAsync(Guid? connectorId);
+
+    /// <summary>
     /// Deletes the consent for the given Id.
     /// This is an asynchronous method.
     /// </summary>
@@ -482,6 +537,32 @@ namespace io.fusionauth {
     /// IOException.
     /// </returns>
     Task<ClientResponse<RESTVoid>> DeleteEmailTemplateAsync(Guid? emailTemplateId);
+
+    /// <summary>
+    /// Deletes the form for the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="formId"> The Id of the form to delete.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<RESTVoid>> DeleteFormAsync(Guid? formId);
+
+    /// <summary>
+    /// Deletes the form field for the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="fieldId"> The Id of the form field to delete.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<RESTVoid>> DeleteFormFieldAsync(Guid? fieldId);
 
     /// <summary>
     /// Deletes the group for the given Id.
@@ -526,14 +607,14 @@ namespace io.fusionauth {
     /// Deletes the key for the given Id.
     /// This is an asynchronous method.
     /// </summary>
-    /// <param name="keyOd"> The Id of the key to delete.</param>
+    /// <param name="keyId"> The Id of the key to delete.</param>
     /// <returns>
     /// When successful, the response will contain the log of the action. If there was a validation error or any
     /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
     /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
     /// IOException.
     /// </returns>
-    Task<ClientResponse<RESTVoid>> DeleteKeyAsync(Guid? keyOd);
+    Task<ClientResponse<RESTVoid>> DeleteKeyAsync(Guid? keyId);
 
     /// <summary>
     /// Deletes the lambda for the given Id.
@@ -711,8 +792,8 @@ namespace io.fusionauth {
     /// This is an asynchronous method.
     /// </summary>
     /// <param name="code"> The authorization code returned on the /oauth2/authorize response.</param>
-    /// <param name="client_id"> (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.</param>
-    /// <param name="client_secret"> (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.</param>
+    /// <param name="client_id"> The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate.</param>
+    /// <param name="client_secret"> (Optional) The client secret. This value will be required if client authentication is enabled.</param>
     /// <param name="redirect_uri"> The URI to redirect to upon a successful request.</param>
     /// <returns>
     /// When successful, the response will contain the log of the action. If there was a validation error or any
@@ -887,9 +968,34 @@ namespace io.fusionauth {
     Task<ClientResponse<KeyResponse>> ImportKeyAsync(Guid? keyId, KeyRequest request);
 
     /// <summary>
-    /// Bulk imports multiple users. This does some validation, but then tries to run batch inserts of users. This reduces
-    /// latency when inserting lots of users. Therefore, the error response might contain some information about failures,
-    /// but it will likely be pretty generic.
+    /// Bulk imports refresh tokens. This request performs minimal validation and runs batch inserts of refresh tokens with the
+    /// expectation that each token represents a user that already exists and is registered for the corresponding FusionAuth
+    /// Application. This is done to increases the insert performance.
+    /// 
+    /// Therefore, if you encounter an error due to a database key violation, the response will likely offer a generic
+    /// explanation. If you encounter an error, you may optionally enable additional validation to receive a JSON response
+    /// body with specific validation errors. This will slow the request down but will allow you to identify the cause of
+    /// the failure. See the validateDbConstraints request parameter.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="request"> The request that contains all of the information about all of the refresh tokens to import.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<RESTVoid>> ImportRefreshTokensAsync(RefreshTokenImportRequest request);
+
+    /// <summary>
+    /// Bulk imports users. This request performs minimal validation and runs batch inserts of users with the expectation
+    /// that each user does not yet exist and each registration corresponds to an existing FusionAuth Application. This is done to
+    /// increases the insert performance.
+    /// 
+    /// Therefore, if you encounter an error due to a database key violation, the response will likely offer
+    /// a generic explanation. If you encounter an error, you may optionally enable additional validation to receive a JSON response
+    /// body with specific validation errors. This will slow the request down but will allow you to identify the cause of the failure. See
+    /// the validateDbConstraints request parameter.
     /// This is an asynchronous method.
     /// </summary>
     /// <param name="request"> The request that contains all of the information about all of the users to import.</param>
@@ -902,6 +1008,20 @@ namespace io.fusionauth {
     Task<ClientResponse<RESTVoid>> ImportUsersAsync(ImportRequest request);
 
     /// <summary>
+    /// Inspect an access token issued by FusionAuth.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="client_id"> The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.</param>
+    /// <param name="token"> The access token returned by this OAuth provider as the result of a successful authentication.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<IntrospectResponse>> IntrospectAccessTokenAsync(string client_id, string token);
+
+    /// <summary>
     /// Issue a new access token (JWT) for the requested Application after ensuring the provided JWT is valid. A valid
     /// access token is properly signed and not expired.
     /// <p>
@@ -912,7 +1032,7 @@ namespace io.fusionauth {
     /// <param name="applicationId"> The Application Id for which you are requesting a new access token be issued.</param>
     /// <param name="encodedJWT"> The encoded JWT (access token).</param>
     /// <param name="refreshToken"> (Optional) An existing refresh token used to request a refresh token in addition to a JWT in the response.
-    /// <p>The target application represented by the applicationid request parameter must have refresh 
+    /// <p>The target application represented by the applicationId request parameter must have refresh
     /// tokens enabled in order to receive a refresh token in the response.</p></param>
     /// <returns>
     /// When successful, the response will contain the log of the action. If there was a validation error or any
@@ -1044,6 +1164,20 @@ namespace io.fusionauth {
     /// IOException.
     /// </returns>
     Task<ClientResponse<ApplicationResponse>> PatchApplicationRoleAsync(Guid? applicationId, Guid? roleId, Dictionary<string, object> request);
+
+    /// <summary>
+    /// Updates, via PATCH, the connector with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="connectorId"> The Id of the connector to update.</param>
+    /// <param name="request"> The request that contains just the new connector information.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<ConnectorResponse>> PatchConnectorAsync(Guid? connectorId, Dictionary<string, object> request);
 
     /// <summary>
     /// Updates, via PATCH, the consent with the given Id.
@@ -1352,6 +1486,21 @@ namespace io.fusionauth {
     Task<ClientResponse<VerifyEmailResponse>> ResendEmailVerificationAsync(string email);
 
     /// <summary>
+    /// Re-sends the verification email to the user. If the Application has configured a specific email template this will be used
+    /// instead of the tenant configuration.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="applicationId"> The unique Application Id to used to resolve an application specific email template.</param>
+    /// <param name="email"> The email address of the user that needs a new verification email.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<VerifyEmailResponse>> ResendEmailVerificationWithApplicationTemplateAsync(Guid? applicationId, string email);
+
+    /// <summary>
     /// Re-sends the application registration verification email to the user.
     /// This is an asynchronous method.
     /// </summary>
@@ -1456,6 +1605,31 @@ namespace io.fusionauth {
     /// IOException.
     /// </returns>
     Task<ClientResponse<AuditLogResponse>> RetrieveAuditLogAsync(int? auditLogId);
+
+    /// <summary>
+    /// Retrieves the connector with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="connectorId"> The Id of the connector.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<ConnectorResponse>> RetrieveConnectorAsync(Guid? connectorId);
+
+    /// <summary>
+    /// Retrieves all of the connectors.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<ConnectorResponse>> RetrieveConnectorsAsync();
 
     /// <summary>
     /// Retrieves the Consent for the given Id.
@@ -1576,6 +1750,56 @@ namespace io.fusionauth {
     /// IOException.
     /// </returns>
     Task<ClientResponse<FamilyResponse>> RetrieveFamilyMembersByFamilyIdAsync(Guid? familyId);
+
+    /// <summary>
+    /// Retrieves the form with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="formId"> The Id of the form.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormResponse>> RetrieveFormAsync(Guid? formId);
+
+    /// <summary>
+    /// Retrieves the form field with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="fieldId"> The Id of the form field.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormFieldResponse>> RetrieveFormFieldAsync(Guid? fieldId);
+
+    /// <summary>
+    /// Retrieves all of the forms fields
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormFieldResponse>> RetrieveFormFieldsAsync();
+
+    /// <summary>
+    /// Retrieves all of the forms.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormResponse>> RetrieveFormsAsync();
 
     /// <summary>
     /// Retrieves the group for the given Id.
@@ -2194,6 +2418,19 @@ namespace io.fusionauth {
     Task<ClientResponse<UserConsentResponse>> RetrieveUserConsentsAsync(Guid? userId);
 
     /// <summary>
+    /// Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="encodedJWT"> The encoded JWT (access token).</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<UserResponse>> RetrieveUserInfoFromAccessTokenAsync(string encodedJWT);
+
+    /// <summary>
     /// Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
     /// login counts for that application.
     /// This is an asynchronous method.
@@ -2542,6 +2779,20 @@ namespace io.fusionauth {
     Task<ClientResponse<ApplicationResponse>> UpdateApplicationRoleAsync(Guid? applicationId, Guid? roleId, ApplicationRequest request);
 
     /// <summary>
+    /// Updates the connector with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="connectorId"> The Id of the connector to update.</param>
+    /// <param name="request"> The request object that contains all of the new connector information.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<ConnectorResponse>> UpdateConnectorAsync(Guid? connectorId, ConnectorRequest request);
+
+    /// <summary>
     /// Updates the consent with the given Id.
     /// This is an asynchronous method.
     /// </summary>
@@ -2568,6 +2819,34 @@ namespace io.fusionauth {
     /// IOException.
     /// </returns>
     Task<ClientResponse<EmailTemplateResponse>> UpdateEmailTemplateAsync(Guid? emailTemplateId, EmailTemplateRequest request);
+
+    /// <summary>
+    /// Updates the form with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="formId"> The Id of the form to update.</param>
+    /// <param name="request"> The request object that contains all of the new form information.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormResponse>> UpdateFormAsync(Guid? formId, FormRequest request);
+
+    /// <summary>
+    /// Updates the form field with the given Id.
+    /// This is an asynchronous method.
+    /// </summary>
+    /// <param name="fieldId"> The Id of the form field to update.</param>
+    /// <param name="request"> The request object that contains all of the new form field information.</param>
+    /// <returns>
+    /// When successful, the response will contain the log of the action. If there was a validation error or any
+    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+    /// IOException.
+    /// </returns>
+    Task<ClientResponse<FormFieldResponse>> UpdateFormFieldAsync(Guid? fieldId, FormFieldRequest request);
 
     /// <summary>
     /// Updates the group with the given Id.
@@ -2946,6 +3225,19 @@ namespace io.fusionauth {
    ClientResponse<AuditLogResponse> CreateAuditLog(AuditLogRequest request);
 
    /// <summary>
+   /// Creates a connector.  You can optionally specify an Id for the connector, if not provided one will be generated.
+   /// </summary>
+   /// <param name="connectorId"> (Optional) The Id for the connector. If not provided a secure random UUID will be generated.</param>
+   /// <param name="request"> The request object that contains all of the information used to create the connector.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<ConnectorResponse> CreateConnector(Guid? connectorId, ConnectorRequest request);
+
+   /// <summary>
    /// Creates a user consent type. You can optionally specify an Id for the consent type, if not provided one will be generated.
    /// </summary>
    /// <param name="consentId"> (Optional) The Id for the consent. If not provided a secure random UUID will be generated.</param>
@@ -2984,6 +3276,32 @@ namespace io.fusionauth {
    /// IOException.
    /// </returns>
    ClientResponse<FamilyResponse> CreateFamily(Guid? familyId, FamilyRequest request);
+
+   /// <summary>
+   /// Creates a form.  You can optionally specify an Id for the form, if not provided one will be generated.
+   /// </summary>
+   /// <param name="formId"> (Optional) The Id for the form. If not provided a secure random UUID will be generated.</param>
+   /// <param name="request"> The request object that contains all of the information used to create the form.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormResponse> CreateForm(Guid? formId, FormRequest request);
+
+   /// <summary>
+   /// Creates a form field.  You can optionally specify an Id for the form, if not provided one will be generated.
+   /// </summary>
+   /// <param name="fieldId"> (Optional) The Id for the form field. If not provided a secure random UUID will be generated.</param>
+   /// <param name="request"> The request object that contains all of the information used to create the form field.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormFieldResponse> CreateFormField(Guid? fieldId, FormFieldRequest request);
 
    /// <summary>
    /// Creates a group. You can optionally specify an Id for the group, if not provided one will be generated.
@@ -3220,6 +3538,18 @@ namespace io.fusionauth {
    ClientResponse<RESTVoid> DeleteApplicationRole(Guid? applicationId, Guid? roleId);
 
    /// <summary>
+   /// Deletes the connector for the given Id.
+   /// </summary>
+   /// <param name="connectorId"> The Id of the connector to delete.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<RESTVoid> DeleteConnector(Guid? connectorId);
+
+   /// <summary>
    /// Deletes the consent for the given Id.
    /// </summary>
    /// <param name="consentId"> The Id of the consent to delete.</param>
@@ -3242,6 +3572,30 @@ namespace io.fusionauth {
    /// IOException.
    /// </returns>
    ClientResponse<RESTVoid> DeleteEmailTemplate(Guid? emailTemplateId);
+
+   /// <summary>
+   /// Deletes the form for the given Id.
+   /// </summary>
+   /// <param name="formId"> The Id of the form to delete.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<RESTVoid> DeleteForm(Guid? formId);
+
+   /// <summary>
+   /// Deletes the form field for the given Id.
+   /// </summary>
+   /// <param name="fieldId"> The Id of the form field to delete.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<RESTVoid> DeleteFormField(Guid? fieldId);
 
    /// <summary>
    /// Deletes the group for the given Id.
@@ -3282,14 +3636,14 @@ namespace io.fusionauth {
    /// <summary>
    /// Deletes the key for the given Id.
    /// </summary>
-   /// <param name="keyOd"> The Id of the key to delete.</param>
+   /// <param name="keyId"> The Id of the key to delete.</param>
    /// <returns>
    /// When successful, the response will contain the log of the action. If there was a validation error or any
    /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
    /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
    /// IOException.
    /// </returns>
-   ClientResponse<RESTVoid> DeleteKey(Guid? keyOd);
+   ClientResponse<RESTVoid> DeleteKey(Guid? keyId);
 
    /// <summary>
    /// Deletes the lambda for the given Id.
@@ -3454,8 +3808,8 @@ namespace io.fusionauth {
    /// If you will be using the Authorization Code grant, you will make a request to the Token endpoint to exchange the authorization code returned from the Authorize endpoint for an access token.
    /// </summary>
    /// <param name="code"> The authorization code returned on the /oauth2/authorize response.</param>
-   /// <param name="client_id"> (Optional) The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate. This parameter is optional when the Authorization header is provided.</param>
-   /// <param name="client_secret"> (Optional) The client secret. This value may optionally be provided in the request body instead of the Authorization header.</param>
+   /// <param name="client_id"> The unique client identifier. The client Id is the Id of the FusionAuth Application in which you you are attempting to authenticate.</param>
+   /// <param name="client_secret"> (Optional) The client secret. This value will be required if client authentication is enabled.</param>
    /// <param name="redirect_uri"> The URI to redirect to upon a successful request.</param>
    /// <returns>
    /// When successful, the response will contain the log of the action. If there was a validation error or any
@@ -3619,9 +3973,33 @@ namespace io.fusionauth {
    ClientResponse<KeyResponse> ImportKey(Guid? keyId, KeyRequest request);
 
    /// <summary>
-   /// Bulk imports multiple users. This does some validation, but then tries to run batch inserts of users. This reduces
-   /// latency when inserting lots of users. Therefore, the error response might contain some information about failures,
-   /// but it will likely be pretty generic.
+   /// Bulk imports refresh tokens. This request performs minimal validation and runs batch inserts of refresh tokens with the
+   /// expectation that each token represents a user that already exists and is registered for the corresponding FusionAuth
+   /// Application. This is done to increases the insert performance.
+   /// 
+   /// Therefore, if you encounter an error due to a database key violation, the response will likely offer a generic
+   /// explanation. If you encounter an error, you may optionally enable additional validation to receive a JSON response
+   /// body with specific validation errors. This will slow the request down but will allow you to identify the cause of
+   /// the failure. See the validateDbConstraints request parameter.
+   /// </summary>
+   /// <param name="request"> The request that contains all of the information about all of the refresh tokens to import.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<RESTVoid> ImportRefreshTokens(RefreshTokenImportRequest request);
+
+   /// <summary>
+   /// Bulk imports users. This request performs minimal validation and runs batch inserts of users with the expectation
+   /// that each user does not yet exist and each registration corresponds to an existing FusionAuth Application. This is done to
+   /// increases the insert performance.
+   /// 
+   /// Therefore, if you encounter an error due to a database key violation, the response will likely offer
+   /// a generic explanation. If you encounter an error, you may optionally enable additional validation to receive a JSON response
+   /// body with specific validation errors. This will slow the request down but will allow you to identify the cause of the failure. See
+   /// the validateDbConstraints request parameter.
    /// </summary>
    /// <param name="request"> The request that contains all of the information about all of the users to import.</param>
    /// <returns>
@@ -3633,6 +4011,19 @@ namespace io.fusionauth {
    ClientResponse<RESTVoid> ImportUsers(ImportRequest request);
 
    /// <summary>
+   /// Inspect an access token issued by FusionAuth.
+   /// </summary>
+   /// <param name="client_id"> The unique client identifier. The client Id is the Id of the FusionAuth Application for which this token was generated.</param>
+   /// <param name="token"> The access token returned by this OAuth provider as the result of a successful authentication.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<IntrospectResponse> IntrospectAccessToken(string client_id, string token);
+
+   /// <summary>
    /// Issue a new access token (JWT) for the requested Application after ensuring the provided JWT is valid. A valid
    /// access token is properly signed and not expired.
    /// <p>
@@ -3642,7 +4033,7 @@ namespace io.fusionauth {
    /// <param name="applicationId"> The Application Id for which you are requesting a new access token be issued.</param>
    /// <param name="encodedJWT"> The encoded JWT (access token).</param>
    /// <param name="refreshToken"> (Optional) An existing refresh token used to request a refresh token in addition to a JWT in the response.
-    /// <p>The target application represented by the applicationid request parameter must have refresh 
+    /// <p>The target application represented by the applicationId request parameter must have refresh
     /// tokens enabled in order to receive a refresh token in the response.</p></param>
    /// <returns>
    /// When successful, the response will contain the log of the action. If there was a validation error or any
@@ -3766,6 +4157,19 @@ namespace io.fusionauth {
    /// IOException.
    /// </returns>
    ClientResponse<ApplicationResponse> PatchApplicationRole(Guid? applicationId, Guid? roleId, Dictionary<string, object> request);
+
+   /// <summary>
+   /// Updates, via PATCH, the connector with the given Id.
+   /// </summary>
+   /// <param name="connectorId"> The Id of the connector to update.</param>
+   /// <param name="request"> The request that contains just the new connector information.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<ConnectorResponse> PatchConnector(Guid? connectorId, Dictionary<string, object> request);
 
    /// <summary>
    /// Updates, via PATCH, the consent with the given Id.
@@ -4052,6 +4456,20 @@ namespace io.fusionauth {
    ClientResponse<VerifyEmailResponse> ResendEmailVerification(string email);
 
    /// <summary>
+   /// Re-sends the verification email to the user. If the Application has configured a specific email template this will be used
+   /// instead of the tenant configuration.
+   /// </summary>
+   /// <param name="applicationId"> The unique Application Id to used to resolve an application specific email template.</param>
+   /// <param name="email"> The email address of the user that needs a new verification email.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<VerifyEmailResponse> ResendEmailVerificationWithApplicationTemplate(Guid? applicationId, string email);
+
+   /// <summary>
    /// Re-sends the application registration verification email to the user.
    /// </summary>
    /// <param name="email"> The email address of the user that needs a new verification email.</param>
@@ -4148,6 +4566,29 @@ namespace io.fusionauth {
    /// IOException.
    /// </returns>
    ClientResponse<AuditLogResponse> RetrieveAuditLog(int? auditLogId);
+
+   /// <summary>
+   /// Retrieves the connector with the given Id.
+   /// </summary>
+   /// <param name="connectorId"> The Id of the connector.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<ConnectorResponse> RetrieveConnector(Guid? connectorId);
+
+   /// <summary>
+   /// Retrieves all of the connectors.
+   /// </summary>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<ConnectorResponse> RetrieveConnectors();
 
    /// <summary>
    /// Retrieves the Consent for the given Id.
@@ -4259,6 +4700,52 @@ namespace io.fusionauth {
    /// IOException.
    /// </returns>
    ClientResponse<FamilyResponse> RetrieveFamilyMembersByFamilyId(Guid? familyId);
+
+   /// <summary>
+   /// Retrieves the form with the given Id.
+   /// </summary>
+   /// <param name="formId"> The Id of the form.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormResponse> RetrieveForm(Guid? formId);
+
+   /// <summary>
+   /// Retrieves the form field with the given Id.
+   /// </summary>
+   /// <param name="fieldId"> The Id of the form field.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormFieldResponse> RetrieveFormField(Guid? fieldId);
+
+   /// <summary>
+   /// Retrieves all of the forms fields
+   /// </summary>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormFieldResponse> RetrieveFormFields();
+
+   /// <summary>
+   /// Retrieves all of the forms.
+   /// </summary>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormResponse> RetrieveForms();
 
    /// <summary>
    /// Retrieves the group for the given Id.
@@ -4830,6 +5317,18 @@ namespace io.fusionauth {
    ClientResponse<UserConsentResponse> RetrieveUserConsents(Guid? userId);
 
    /// <summary>
+   /// Call the UserInfo endpoint to retrieve User Claims from the access token issued by FusionAuth.
+   /// </summary>
+   /// <param name="encodedJWT"> The encoded JWT (access token).</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<UserResponse> RetrieveUserInfoFromAccessToken(string encodedJWT);
+
+   /// <summary>
    /// Retrieves the login report between the two instants for a particular user by Id. If you specify an application id, it will only return the
    /// login counts for that application.
    /// </summary>
@@ -5153,6 +5652,19 @@ namespace io.fusionauth {
    ClientResponse<ApplicationResponse> UpdateApplicationRole(Guid? applicationId, Guid? roleId, ApplicationRequest request);
 
    /// <summary>
+   /// Updates the connector with the given Id.
+   /// </summary>
+   /// <param name="connectorId"> The Id of the connector to update.</param>
+   /// <param name="request"> The request object that contains all of the new connector information.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<ConnectorResponse> UpdateConnector(Guid? connectorId, ConnectorRequest request);
+
+   /// <summary>
    /// Updates the consent with the given Id.
    /// </summary>
    /// <param name="consentId"> The Id of the consent to update.</param>
@@ -5177,6 +5689,32 @@ namespace io.fusionauth {
    /// IOException.
    /// </returns>
    ClientResponse<EmailTemplateResponse> UpdateEmailTemplate(Guid? emailTemplateId, EmailTemplateRequest request);
+
+   /// <summary>
+   /// Updates the form with the given Id.
+   /// </summary>
+   /// <param name="formId"> The Id of the form to update.</param>
+   /// <param name="request"> The request object that contains all of the new form information.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormResponse> UpdateForm(Guid? formId, FormRequest request);
+
+   /// <summary>
+   /// Updates the form field with the given Id.
+   /// </summary>
+   /// <param name="fieldId"> The Id of the form field to update.</param>
+   /// <param name="request"> The request object that contains all of the new form field information.</param>
+   /// <returns>
+   /// When successful, the response will contain the log of the action. If there was a validation error or any
+   /// other type of error, this will return the Errors object in the response. Additionally, if FusionAuth could not be
+   /// contacted because it is down or experiencing a failure, the response will contain an Exception, which could be an
+   /// IOException.
+   /// </returns>
+   ClientResponse<FormFieldResponse> UpdateFormField(Guid? fieldId, FormFieldRequest request);
 
    /// <summary>
    /// Updates the group with the given Id.
